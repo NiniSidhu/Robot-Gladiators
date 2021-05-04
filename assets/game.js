@@ -38,6 +38,7 @@ function fight(){
 var playerName = window.prompt("What is your robot's name?");
 var playerHealth = 100;
 var playerAttack = 10; 
+var playerMoney = 10; 
 
 console.log(playerName, playerAttack, playerHealth); // We could log mutiple items at once as well!
 
@@ -50,33 +51,55 @@ var fight = function(){
     //Alert the player that ehy are starting the round.
     window.alert("Welcome to Robot Gladiators!");
 
-    // Subtract value of playerAttack from the value of enemyHealth and use that result to update the value in the enemyHealth variable. 
-    enemyHealth = enemyHealth - playerAttack;
-    // Log a resulting message to the console to confirm that it worked
-    console.log(playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth +" health remaining ");
-    // Checking enemy health using if else statements 
-    if (enemyHealth <= 0){
-        window.alert(enemyName + " has died! ");
-    }
-    else {
-        window.alert(enemyName + " still has " + enemyHealth + " health left.");
-    }
-    // Subtract the value of enemyAttack from the value of playerHealth and use that result to update the value in the playerHealth variable 
-    playerHealth = playerHealth - enemyAttack;
-    // Log a resulting message to the console to confirm that it worked
-    console.log(enemyName + " attacked " + playerName + ". "+ playerName + " now has " + playerHealth + " health remaining. ");
-    // Checking our health using if else statements 
-    if (playerHealth <= 0){
-        window.alert(playerName + " has died!");
-    }
-    else{
-        window/alert(playerName + " still has " + playerHealth + " health left.");
-    }
+    // Adding a feature to continue fighting
+    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
+        //If player choose to fight, then fight
+        if (promptFight === "fight" || promptFight === 'FIGHT'){
+            // Subtract value of playerAttack from the value of enemyHealth and use that result to update the value in the enemyHealth variable. 
+            enemyHealth = enemyHealth - playerAttack;
+            // Log a resulting message to the console to confirm that it worked
+            console.log(playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth +" health remaining ");
+            // Checking enemy health using if else statements 
+            if (enemyHealth <= 0){
+                window.alert(enemyName + " has died! ");
+            }
+            else {
+                window.alert(enemyName + " still has " + enemyHealth + " health left.");
+            }
+            // Subtract the value of enemyAttack from the value of playerHealth and use that result to update the value in the playerHealth variable 
+            playerHealth = playerHealth - enemyAttack;
+            // Log a resulting message to the console to confirm that it worked
+            console.log(enemyName + " attacked " + playerName + ". "+ playerName + " now has " + playerHealth + " health remaining. ");
+            // Checking our health using if else statements 
+            if (playerHealth <= 0){
+            window.alert(playerName + " has died!");
+            }
+            else{
+            window/alert(playerName + " still has " + playerHealth + " health left.");
+            }
+            // || function means OR, so the user can input in either way that has been listed below! 
+            /* else if is used as another if statement block in the event that the first if statement is false, the second
+            if statement would get initiated */
 
+        } else if(promptFight === "skip" || promptFight === "SKIP"){
+            //confirming if the player actually wants to skip the fight
+            var confirmSkip = window.confirm("Are you sure you'd like to quit?") // window.confirm spits out yes and no type of alert! 
+            window.alert(playerName + " has chosen to skip the fight!");
+                //if yes (true) then leave the fight 
+                if (confirmSkip){
+                    window.alert(playerName + " has decided to skip the fight. Goodbye!");
+                    //subtract the money from player's account 
+                    playerMoney = playerMoney -2;
+                }
+                //if no (false) then go back to fight 
+                else{
+                    fight();
+                }
+        } else {
+            window.alert("You need to choose a valid option. Try again!");
+        }
 
-
-
-}   
+    }   
 
 fight();
 
