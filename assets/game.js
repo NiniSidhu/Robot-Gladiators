@@ -40,11 +40,38 @@ var playerHealth = 100;
 var playerAttack = 10; 
 var playerMoney = 10; 
 
-console.log(playerName, playerAttack, playerHealth); // We could log mutiple items at once as well!
-
-var enemyName = "Roberto";
+var enemyNames = ["Roberto", "Amy Android", "Robo Trumble"]; // Defined 3 enemy robot names in an array!
 var enemyHealth = 50;
 var enemyAttack = 12; 
+
+
+
+
+/*console.log(playerName, playerAttack, playerHealth); // We could log mutiple items at once as well!
+console.log(enemyNames); //Retrieves all the names of the enemies
+console.log(enemyNames[0]); //Retrieves the 0th name in the array defined above
+console.log(enemyNames[1]);
+console.log(enemyNames[2]);
+console.log(enemyNames.length); // tells us the length of the Array!
+//console.log(enemyNames[enemyNames.length-1]); //tells us the last element in the array. 
+/* the for loop is used to display the contents of the array without individully calling them.     
+the following is the convention for the for loop: 
+
+for([initial expression]; [condition]; [increment expression]){
+    statement
+} 
+
+for (var i =0; i <3; i++){
+        console.log("apple", i); shows the iteration of the array in the console 
+    } */
+
+    
+for (var i = 0; i < enemyNames.length; i++){
+    console.log(enemyNames[i]);
+    console.log(i);
+    console.log(enemyNames[i] + " is at " + i + " index");
+}
+
 
 var fight = function(){
     
@@ -78,13 +105,13 @@ var fight = function(){
             window/alert(playerName + " still has " + playerHealth + " health left.");
             }
             // || function means OR, so the user can input in either way that has been listed below! 
-            /* else if is used as another if statement block in the event that the first if statement is false, the second
-            if statement would get initiated */
+            // else if is used as another if statement block in the event that the first if statement is false, the second
+            //if statement would get initiated 
 
         } else if(promptFight === "skip" || promptFight === "SKIP"){
-            //confirming if the player actually wants to skip the fight
-            var confirmSkip = window.confirm("Are you sure you'd like to quit?") // window.confirm spits out yes and no type of alert! 
-            window.alert(playerName + " has chosen to skip the fight!");
+                //confirming if the player actually wants to skip the fight
+                var confirmSkip = window.confirm("Are you sure you'd like to quit?") // window.confirm spits out yes and no type of alert! 
+                window.alert(playerName + " has chosen to skip the fight!");
                 //if yes (true) then leave the fight 
                 if (confirmSkip){
                     window.alert(playerName + " has decided to skip the fight. Goodbye!");
@@ -96,12 +123,12 @@ var fight = function(){
                     fight();
                 }
         } else {
-            window.alert("You need to choose a valid option. Try again!");
-        }
+                window.alert("You need to choose a valid option. Try again!");
+            }
 
     }   
 
-fight();
+
 
 
 
