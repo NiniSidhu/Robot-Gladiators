@@ -1,14 +1,9 @@
-var playerName = window.prompt("What is your robot's name?"); // var with a user input and a string attached
-var playerHealth = 100; // var with integer number assigned 
-var playerAttack = 10;
-var playerMoney = 10;
 
-var enemyNames = ["Roberto", "Amy Android", "Robo Trumble"]; // var with an array with 3 elements in the array
-var enemyHealth = 50;
-var enemyAttack = 12; 
 
-var fight = function(enemyName){   // calling fight as a function and variable enemy Names within that function 
-    while (playerHealth > 0 && enemyHealth > 0){ // while loops allows us to run the fight function WHILE the condiction given is TRUE! && is the AND logic operator that is used!
+
+
+var fight = function(enemy){   // calling fight as a function and variable enemy Names within that function 
+    while (playerHealth > 0 && enemy.Health > 0){ // while loops allows us to run the fight function WHILE the condiction given is TRUE! && is the AND logic operator that is used!
         var promtFight = window.prompt("Would you like to FIGHT or SKIP this battle?");
             
         if (promtFight === "skip" || promtFight === "SKIP"){
@@ -22,22 +17,22 @@ var fight = function(enemyName){   // calling fight as a function and variable e
             }
         }
         var damage = randomNumber(playerAttack - 3, playerAttack);
-        enemyHealth = Math.max(0, enemyHealth-damage);        
+        enemy.Health = Math.max(0, enemy.Health-damage);        
         console.log(
-        playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
+        playerName + " attacked " + enemy.Name + ". " + enemy.Name + " now has " + enemy.Health + " health remaining."
         );
 
-        if (enemyHealth <= 0){
-            window.alert(enemyName + " has died! ");
+        if (enemy.Health <= 0){
+            window.alert(enemy.Name + " has died! ");
             playerMoney = playerMoney + 20;
             break;
             }else{
-            window.alert(enemyName + " still has " + enemyHealth + " health left. ");
+            window.alert(enemy.Name + " still has " + enemy.Health + " health left. ");
             }
-        var damage = randomNumber(enemyAttack - 3, enemyAttack);
+        var damage = randomNumber(enemy.Attack - 3, enemy.Attack);
         playerHealth = Math.max(0, playerHealth - damage);
         console.log(
-        enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining. "
+        enemy.Name + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining. "
         );    
         if (playerHealth <= 0){
             window.alert(playerName + " has died! ");
@@ -50,18 +45,16 @@ var fight = function(enemyName){   // calling fight as a function and variable e
 
 // function to start a new game 
 var startGame = function(){
-    // resetting player stats
-    playerHealth = 100;
-    playerAttack = 10;
-    playerMoney = 100;
-    for(var i = 0 ; i < enemyNames.length; i++){
+    // reset player info 
+    playerInfo.reset();
+    for(var i = 0 ; i < enemyInfo.length; i++){
         
         if (playerHealth > 0){
             window.alert("Welcome to Robot Gladiators! Round" + (i + 1));
 
-            var pickedEnemyName = enemyNames [i];
-            enemyHealth = randomNumber();
-            fight(pickedEnemyName);
+            var pickedEnemyObj = enemyNames [i];
+            pickedEnemyObj.health = randomNumber(40,60);
+            fight(pickedEnemyObj);
             
             
             // if the player is still alive and we are not at the last enemy at the array
@@ -117,30 +110,12 @@ var shop = function(){
     switch (shopOptionPrompt){
         case "REFILL": // to support other formats of user input 
         case "refill":
-            if (playerMoney >=7){
-                window.alert("Refiling player's health by 20 for 7 dollars.");
-
-                //increase the player's health
-                playerHealth = playerHealth + 20;
-                playerMoney = playerMoney - 7;
-            }
-            else{
-                window.alert("You don't have enough money!");
-            } 
+            playerInfo.refillHealth();
             break; // essential to add break because there is nothing else you want the function to do or continue on to other cases
         
         case "UPGRAGE":
         case "upgrade":
-            if (playerMoney >= 7){
-                window.alert("Upgrading player's attack by 6 for 7 dollars.");
-
-                //increase the player's attack 
-                playerAttack = playerAttack + 6;
-                playerMoney = playerMoney - 7; 
-            }
-            else{
-                window.alert("You don't have enough money!");
-            }
+            playerInfo.upgradeAttack();
             break; 
         case "LEAVE":
         case "leave":
@@ -168,5 +143,54 @@ var randomNumber = function(){
         return value;*/
 
 }
+// Using custom object to have user robot specifications. 
+var playerInfo = {
+    name: window.prompt("What is your Robot's name?"),
+    health: 100, 
+    attack: 10, 
+    money: 10
+    reset: function(){
+        this.health = 100;
+        this.money = 10;
+        this.attack = 10; 
+    }, 
+    refillHealth: function(){
+        if (this.money >= 7){
+            window.alert("Refilling player's health by 20 for 7 dollars.");
+            this.health += 20;
+            this.money -=7;
+        }
+        else{
+            window.alert("You don't have enough money!");
+        }
+        
+    },
+    upgradeAttack: function(){
+        if (this.money >=7){
+            this.attack += 6;
+            this.money -= 7;
+        }
+        else{
+            window.alert("You don't have enough money!");
+        }
+         
+    }
+};
+
+var enemyInfo= [
+    {
+        name: "Roberto",
+        attack: randomNumber(10,14)
+    },
+    {
+        name: "Amy Android",
+        attack: randomNumber (10,14)
+    },
+    {
+        name: "Robo Trumble",
+        attack: randomNumber (10,14)
+    }
+];
+
 
 startGame();
